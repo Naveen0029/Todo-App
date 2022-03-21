@@ -1,0 +1,12 @@
+.Container3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Countercontainer{
+    display: flex;
+    justify-content: space-between;
+}
+h1{
+    margin: 5px;
+}

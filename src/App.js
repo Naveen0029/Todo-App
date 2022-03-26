@@ -16,7 +16,7 @@ const App = () => {
       console.log(prevVal);
       console.log(newVal);
      
-      if(newVal!==''){
+      if(newVal!==''&&!arr.includes(newVal)){
         if(prevVal!==''){
           setArr(
            

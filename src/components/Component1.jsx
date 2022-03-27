@@ -1,22 +1,26 @@
 import React from 'react'
 import { useState } from 'react'
-import { useEffect } from 'react';
+import { useEffect,useRef } from 'react';
 import './Component1.css'
+import actions from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { act } from 'react-dom/test-utils';
 
 const Component1 = (props) => {
     const [input,setInput] = useState('');
-    let [prevVal,setPrevVal] = useState('');
-
+    const dispatch = useDispatch();
+    let readData= useSelector((state)=>state.readReducer);
+    //let [prev,setPrev] = useState('');
+    console.log(readData);
+    
     useEffect(()=>{
-      console.log('I am useEffect');
-      if(prevVal==='')//prevVal must be collected because 
-                      //we check where it exists in arr
-      setPrevVal(props.Input);
+     // setPrev(readData);
+      
+      setInput(readData);
+      
+    },[readData])
 
-      setInput(props.Input);
-    },[props.Input]);
-
-
+    
     let changeIt = (e)=>{
       e.preventDefault();
         setInput(e.target.value)
@@ -24,13 +28,14 @@ const Component1 = (props) => {
 
     
     let submitIt = () =>{
-        console.log(prevVal);
-        if(input!==''){
-        props.callBack(prevVal,input);//prev and newval must 
-                                      //be passed for editing
-        setInput('');
-        setPrevVal('');
-        }
+      if(readData!==''){
+        dispatch(actions.editTodo(readData,input));
+      }
+      else
+      dispatch(actions.addTodo(input))
+
+       setInput('');
+       dispatch(actions.readTodo(''));
     }
 
     

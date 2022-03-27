@@ -1,16 +1,14 @@
 import React from 'react'
 import './Component2.css'
 import {AiTwotoneDelete,AiTwotoneEdit} from "react-icons/ai";
-
-const Component2 = ({todos,callTodo,deleteTodo}) => {
-
-  let editIt = (todo)=>{//edit existing todo
-    callTodo(todo);
-    
-  }
-  let deleteIt = (todo)=>{//deletes existing todo
-    deleteTodo(todo);
-  }
+import store from '../redux/store';
+import { useSelector,useDispatch } from 'react-redux';
+import actions
+ from '../redux/actions';
+const Component2 = () => {
+  const todos = useSelector((state)=>state.todoReducer)
+  const dispatch = useDispatch();
+  
   return (
     <div className='Container3'>
       {
@@ -18,8 +16,8 @@ const Component2 = ({todos,callTodo,deleteTodo}) => {
               return (
                 <div className='Countercontainer'>
                      <h1 key={toString(todo)}>{todo}</h1>
-                     <h1 onClick={()=>editIt(todo)}><AiTwotoneEdit /></h1>
-                     <h1 onClick={()=>deleteIt(todo)}><AiTwotoneDelete /></h1>
+                     <h1 onClick={()=>dispatch(actions.readTodo(todo))}><AiTwotoneEdit /></h1>
+                     <h1 onClick={()=>dispatch(actions.deleteTodo(todo))}><AiTwotoneDelete /></h1>
                 </div>
               )
           })
